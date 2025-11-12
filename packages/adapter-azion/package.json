@@ -1,0 +1,58 @@
+{
+	"name": "@sveltejs/adapter-azion",
+	"version": "1.0.0",
+	"description": "Adapter for building SvelteKit applications on Azion",
+	"keywords": [
+		"adapter",
+		"deploy",
+		"hosting",
+		"svelte",
+		"sveltekit",
+		"azion"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/sveltejs/kit.git",
+		"directory": "packages/adapter-azion"
+	},
+	"license": "MIT",
+	"homepage": "https://svelte.dev/docs/kit/adapter-azion",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./index.d.ts",
+			"import": "./index.js"
+		},
+		"./package.json": "./package.json"
+	},
+	"types": "index.d.ts",
+	"files": [
+		"files",
+		"index.js",
+		"utils.js",
+		"index.d.ts",
+		"ambient.d.ts"
+	],
+	"scripts": {
+		"build": "esbuild src/worker.js --bundle --outfile=files/worker.js --external:SERVER --external:MANIFEST --format=esm",
+		"lint": "prettier --check .",
+		"format": "pnpm lint --write",
+		"check": "tsc --skipLibCheck",
+		"test:unit": "vitest run",
+		"test:e2e": "pnpm build && pnpm -r --workspace-concurrency 1 --filter=\"./test/**\" test",
+		"test": "pnpm test:unit && pnpm test:e2e",
+		"prepublishOnly": "pnpm build"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"@playwright/test": "catalog:",
+		"@sveltejs/kit": "workspace:^",
+		"@types/node": "catalog:",
+		"esbuild": "catalog:",
+		"typescript": "^5.3.3",
+		"vitest": "catalog:"
+	},
+	"peerDependencies": {
+		"@sveltejs/kit": "^2.0.0"
+	}
+}
